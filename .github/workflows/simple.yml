@@ -2,8 +2,8 @@ name: mkbsd
 
 on:
   push:
-  schedule:
-  - cron: "0 0 * * *"
+  #schedule:
+  #- cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,11 @@ jobs:
         run: echo "datetime=$(date +'%Y%m%dT%H%M%S%z' --utc)" >> $GITHUB_OUTPUT
             
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-      - run: cargo run --release
+      - run: cargo build
+      - uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+      - run: /home/runner/work/mkbsd-rs-actions/mkbsd-rs-actions/target/release/mkbsd-rs
       - run: 7z -v1500m a -mx=0 downloads.7z downloads/
 
       - name: Create Release
