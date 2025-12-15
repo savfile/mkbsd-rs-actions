@@ -26,10 +26,8 @@ jobs:
       - uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: true
-      - run: |
-          cd /home/runner/work/mkbsd-rs-actions/mkbsd-rs-actions/target/debug
-          ./mkbsd-rs
-      - run: 7z -v1500m a -mx=0 downloads.7z downloads/
+      - run: /home/runner/work/mkbsd-rs-actions/mkbsd-rs-actions/target/debug/mkbsd-rs
+      - run: 7z -v1500m a -mx=0 downloads.7z /home/runner/work/mkbsd-rs-actions/mkbsd-rs-actions/target/debug/downloads/
 
       - name: Create Release
         uses: ncipollo/release-action@v1
